@@ -1,0 +1,25 @@
+{
+    "name":"GemDigger News",
+    
+    "version":"0.1",
+    
+    
+    "description":"Creates a personalized mashup of most interesting news based on google reader usage",
+    
+    "manifest_version": 2,
+    
+    "permissions": [
+        "webRequest"
+    ],
+    
+    "content_scripts":[{
+        "matches":[
+            "*://www.google.com/reader/view/*"
+        ],
+        "js":[
+            "lib/jquery-1.8.1.min.js",
+            "src/gemdigger.js"
+        ],
+        "run_at":"document_idle"
+    }]
+}
