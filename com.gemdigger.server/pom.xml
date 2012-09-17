@@ -14,6 +14,7 @@
 	<properties>
 		<org.springframework.version>3.1.2.RELEASE</org.springframework.version>
 		<gae.version>1.7.1</gae.version>
+		<gae.home>${appengine.sdk.root}</gae.home>
         
         <!-- put your app name here -->
 	    <app.name>gemdigger-server</app.name>
@@ -24,18 +25,15 @@
         <!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
         <gae.application.version>test</gae.application.version>
         
-        <!-- google app engine sdk home  -->
-        <appengine.sdk.root>/home/tos/springsource/sts-3.0.0.RELEASE/plugins/com.google.appengine.eclipse.sdkbundle_1.7.1/appengine-java-sdk-1.7.1/</appengine.sdk.root>
-
         <!-- port defaults to 8080 -->
         <gae.port>8080</gae.port>
 	</properties>
 
 	<repositories>
-		<repository>
-			<id>google-api-services</id>
-			<url>http://mavenrepo.google-api-java-client.googlecode.com/hg</url>
-		</repository>
+        <repository>
+            <id>DataNucleus</id>
+            <url>http://www.datanucleus.org/downloads/maven2/</url>
+        </repository>
 	</repositories>
   	
 	<dependencies>
@@ -101,9 +99,16 @@
 	        <version>${org.springframework.version}</version>
       	</dependency>
       	<!-- /Spring libraries -->
+      	
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${gae.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-endpoints</artifactId>
             <version>${gae.version}</version>
         </dependency>
 
@@ -169,7 +174,7 @@
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-lgpl</artifactId>
+			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.9</version>
 		</dependency>
 		
@@ -202,6 +207,22 @@
 			<artifactId>datanucleus-rdbms</artifactId>
 			<version>[3.0, 3.0.99)</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.appengine.orm</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>2.0.1.1</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.datanucleus</groupId>
+					<artifactId>datanucleus-enhancer</artifactId>
+				</exclusion>
+				<exclusion>
+		            <groupId>com.google.appengine</groupId>
+		            <artifactId>appengine-api-1.0-sdk</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
@@ -267,6 +288,9 @@
                                 <include>*.xml</include>
                             </includes>
                         </resource>
+						<resource>
+							<directory>src/main/resources</directory>
+						</resource>                        
                     </webResources>
                 </configuration>
             </plugin>
@@ -283,9 +307,22 @@
                         <jvmFlag>-Dmail.log_mail_body=true</jvmFlag>
                     </jvmFlags>
                     <severity>0</severity>
-                    <serverId>gemdigger</serverId>
+                    <serverId>gemdiggernews</serverId>
                     <sdkDir>${appengine.sdk.root}</sdkDir>
                 </configuration>
+                <dependencies>
+					<dependency>
+						<groupId>net.kindleit</groupId>
+						<artifactId>gae-runtime</artifactId>
+						<version>1.7.0</version>
+						<type>pom</type>
+					</dependency>
+			        <dependency>
+			            <groupId>javax.jdo</groupId>
+			            <artifactId>jdo-api</artifactId>
+			            <version>3.0</version>
+			        </dependency>                
+				</dependencies>
             </plugin>
 
             <!-- Upload application to the appspot automatically, during release:perform -->
