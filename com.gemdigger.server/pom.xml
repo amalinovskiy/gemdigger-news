@@ -181,13 +181,13 @@
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-core</artifactId>
-			<version>3.1.0-m5</version>
+			<version>3.0.11</version>
 	    	<scope>compile</scope>
 	    </dependency>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-enhancer</artifactId>
-			<version>3.1.0-release</version>
+			<version>[3.0, 3.0.99)</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -199,7 +199,7 @@
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-api-jdo</artifactId>
-			<version>3.1.0-m3</version>
+			<version>[3.0, 3.0.99)</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -232,7 +232,7 @@
 			<plugin>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>maven-datanucleus-plugin</artifactId>
-                <version>3.1.0-release</version>
+                <version>3.0.2</version>
                 <configuration>
                     <mappingIncludes>**/model/*.class</mappingIncludes>
                     <verbose>true</verbose>
@@ -257,13 +257,13 @@
 					<dependency>
 						<groupId>org.datanucleus</groupId>
 						<artifactId>datanucleus-core</artifactId>
-						<version>3.1.0-m5</version>
+						<version>3.0.11</version>
 						<scope>runtime</scope>
 	        		</dependency>
 	        		<dependency>
 						<groupId>org.datanucleus</groupId>
 						<artifactId>datanucleus-api-jdo</artifactId>
-						<version>3.1.0-m3</version>
+						<version>[3.0, 3.0.99)</version>
 						<scope>runtime</scope>
 					</dependency>
 					<dependency>
@@ -272,6 +272,12 @@
 						<version>[3.0, 3.0.99)</version>
 						<scope>runtime</scope>
 		        	</dependency>
+		        	<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-enhancer</artifactId>
+						<version>[3.0, 3.0.99)</version>
+						<scope>runtime</scope>
+					</dependency>
                 </dependencies>
             </plugin>
         
@@ -322,6 +328,17 @@
 			            <artifactId>jdo-api</artifactId>
 			            <version>3.0</version>
 			        </dependency>                
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-core</artifactId>
+						<version>3.0.11</version>
+	        		</dependency>
+		        	<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-enhancer</artifactId>
+						<version>[3.0, 3.0.99)</version>
+						<scope>runtime</scope>
+					</dependency>	        		
 				</dependencies>
             </plugin>
 

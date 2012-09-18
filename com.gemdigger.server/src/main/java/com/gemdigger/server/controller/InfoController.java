@@ -1,5 +1,6 @@
 package com.gemdigger.server.controller;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gemdigger.server.dao.NewsDao;
 import com.gemdigger.server.model.Action;
+import com.gemdigger.server.model.NewsAction;
 
 @Controller
 public class InfoController {
@@ -34,5 +36,11 @@ public class InfoController {
 		
 		return InfoStatus.SUBMITTED;
 	}
+	
+	@RequestMapping("/list")
+	public @ResponseBody List<NewsAction> list(@RequestParam String userId, @RequestParam Boolean withBody) {
+		return newsDao.listActions(userId, withBody);
+	}
+	
 	
 }

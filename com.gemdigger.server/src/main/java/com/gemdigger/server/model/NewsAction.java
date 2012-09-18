@@ -1,5 +1,7 @@
 package com.gemdigger.server.model;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -26,8 +28,10 @@ public class NewsAction {
 	private String url;
 	
 	@Persistent
-	private String body;
+	private Date created;
 	
+	@Persistent
+	private NewsBody body;
 	
 
 	public Long getId() {
@@ -62,17 +66,25 @@ public class NewsAction {
 		this.url = url;
 	}
 
-	public String getBody() {
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public NewsBody getBody() {
 		return body;
 	}
 
-	public void setBody(String body) {
+	public void setBody(NewsBody body) {
 		this.body = body;
 	}
 
 	@Override
 	public String toString() {
 		return "NewsAction [id=" + id + ", userId=" + userId + ", action="
-				+ action + ", url=" + url + "]";
+				+ action + ", url=" + url + ", created=" + created +"]";
 	}
 }

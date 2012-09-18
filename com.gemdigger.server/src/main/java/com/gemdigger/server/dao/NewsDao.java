@@ -1,13 +1,17 @@
 package com.gemdigger.server.dao;
 
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import org.springframework.stereotype.Service;
 
 import com.gemdigger.server.model.Action;
 import com.gemdigger.server.model.NewsAction;
+import com.gemdigger.server.model.NewsBody;
 
 @Service
 public class NewsDao {
@@ -20,6 +24,12 @@ public class NewsDao {
 		newsAction.setAction(action);
 		newsAction.setUrl(url);
 		newsAction.setUserId(userId);
+		newsAction.setCreated(new Date());
+		
+		NewsBody body = new NewsBody();
+		body.setBody("test body");
+		
+		newsAction.setBody(body);
 		
 		PersistenceManager manager = PMF.get().getPersistenceManager();
 		try {
@@ -29,6 +39,32 @@ public class NewsDao {
 		}
 		
 		log.info("Saved action: " + newsAction.toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<NewsAction> listActions(String userId, boolean withBody) {
+		PersistenceManager manager = PMF.get().getPersistenceManager();
+		
+		Query q = manager.newQuery(NewsAction.class, "userId == userIdParam");
+		q.setOrdering("created desc");
+		q.declareParameters("String userIdParam");
+
+		try {
+			if (withBody) {
+				return (List<NewsAction>)q.execute(userId);				
+			} else {
+				List<NewsAction> actions = (List<NewsAction>)q.execute(userId);
+				
+				for  (NewsAction action : actions) {
+					action.setBody(null);
+				}
+
+				return actions;
+			}
+			
+		} finally {
+			q.closeAll();
+		}
 	}
 
 }
