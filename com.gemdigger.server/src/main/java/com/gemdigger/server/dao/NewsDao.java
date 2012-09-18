@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.gemdigger.server.model.Action;
 import com.gemdigger.server.model.NewsAction;
-import com.gemdigger.server.model.NewsBody;
 
 @Service
 public class NewsDao {
@@ -25,11 +24,6 @@ public class NewsDao {
 		newsAction.setUrl(url);
 		newsAction.setUserId(userId);
 		newsAction.setCreated(new Date());
-		
-		NewsBody body = new NewsBody();
-		body.setBody("test body");
-		
-		newsAction.setBody(body);
 		
 		PersistenceManager manager = PMF.get().getPersistenceManager();
 		try {
