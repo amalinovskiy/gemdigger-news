@@ -40,7 +40,7 @@ public class InfoController {
             newsDao.saveAction(newsAction);
 
             Queue taskQueue = QueueFactory.getQueue("fetch-queue");
-            TaskOptions options = TaskOptions.Builder.withUrl("/task/fetch").param("actionId", newsAction.getId().toString());
+            TaskOptions options = TaskOptions.Builder.withUrl("/info/task/fetch").param("actionId", newsAction.getId().toString());
             taskQueue.add(options);
 
 		} catch (Throwable ex) {
@@ -54,8 +54,13 @@ public class InfoController {
 	
 	@RequestMapping("/list")
 	public @ResponseBody List<NewsAction> list(@RequestParam String userId, @RequestParam Boolean withBody) {
-		return newsDao.listActions(userId, withBody);
-	}
+        try {
+            return newsDao.listActions(userId, withBody);
+        } catch (Throwable ex) {
+            log.log(Level.SEVERE, ex.getMessage(), ex);
+            return null;
+        }
+    }
 	
 	
 }

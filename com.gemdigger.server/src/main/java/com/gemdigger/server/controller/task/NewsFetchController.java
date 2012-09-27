@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Controller
@@ -25,7 +26,7 @@ public class NewsFetchController {
     @Autowired
     NewsDao newsDao;
 
-	@RequestMapping("task/fetch")
+	@RequestMapping("/task/fetch")
 	public @ResponseBody FetchStatus fetchArticle(@RequestParam Long actionId) {
         FetchStatus status = FetchStatus.FAIL;
 
@@ -45,14 +46,21 @@ public class NewsFetchController {
                 body.setTitle(article.title());
                 body.setRawHtml(article.rawHtml());
                 body.setUrl(article.canonicalLink());
+
+                newsDao.saveNewsBody(body);
+                log.info("Created news body record for "  + newsAction.getUrl() + " with canonical url: " + article.canonicalLink() );
             } else {
                 log.info("News body with this url already exists");
                 //TODO: running the checksum and updating the body
             }
 
             newsAction.setCanonicalUrl(body.getUrl());
+            newsDao.saveAction(newsAction);
+            log.info("Updated news action");
 
             status = FetchStatus.SUCCESS;
+        } catch (Throwable ex) {
+            log.log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             return status;
         }

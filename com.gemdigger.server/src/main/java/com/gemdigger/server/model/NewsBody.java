@@ -1,5 +1,7 @@
 package com.gemdigger.server.model;
 
+import com.google.appengine.api.datastore.Text;
+
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -21,10 +23,10 @@ public class NewsBody {
     Set<String> tags;
 
 	@Persistent
-	String body;
+    Text body;
 
     @Persistent
-    String rawHtml;
+    Text rawHtml;
 
 	public String getUrl() {
 		return url;
@@ -51,18 +53,18 @@ public class NewsBody {
     }
 
     public String getBody() {
-		return body;
+		return body.getValue();
 	}
 
 	public void setBody(String body) {
-		this.body = body;
+		this.body = new Text(body);
 	}
 
     public String getRawHtml() {
-        return rawHtml;
+        return rawHtml.getValue();
     }
 
     public void setRawHtml(String rawHtml) {
-        this.rawHtml = rawHtml;
+        this.rawHtml = new Text(rawHtml);
     }
 }

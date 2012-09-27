@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
@@ -19,7 +20,6 @@ public class NewsDao {
 	public static final Logger log = Logger.getLogger(NewsDao.class.getName());
 	
 	public void saveAction(NewsAction newsAction) {
-
 		PersistenceManager manager = PMF.get().getPersistenceManager();
 		try {
 			manager.makePersistent(newsAction);
@@ -56,8 +56,7 @@ public class NewsDao {
 				List<NewsAction> actions = (List<NewsAction>)q.execute(userId);
 				
 				for  (NewsAction action : actions) {
-                    manager.getObjectById(action.getUrl());
-					action.setBody(null);
+					action.setBody(manager.getObjectById(NewsBody.class, action.getUrl()));
 				}
 
 				return actions;
@@ -73,7 +72,9 @@ public class NewsDao {
         PersistenceManager manager = PMF.get().getPersistenceManager();
 
         try {
-            return (NewsAction)manager.getObjectById(id);
+            return manager.getObjectById(NewsAction.class, id);
+        } catch (JDOObjectNotFoundException ex) {
+            return null;
         }  finally {
             manager.close();
         }
@@ -84,6 +85,8 @@ public class NewsDao {
 
         try {
             return (NewsBody)manager.getObjectById(url);
+        } catch (JDOObjectNotFoundException ex) {
+            return null;
         }  finally {
             manager.close();
         }

@@ -2,10 +2,7 @@ package com.gemdigger.server.model;
 
 import java.util.Date;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.*;
 
 /**
  * Represents a user interaction with a news item 
@@ -38,7 +35,8 @@ public class NewsAction {
 	
 	@Persistent
 	private Date created;
-	
+
+    @NotPersistent
 	private NewsBody body;
 
 
