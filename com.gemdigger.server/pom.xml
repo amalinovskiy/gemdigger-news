@@ -1,105 +1,112 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>com.gemdigger.server</groupId>
-	
-	<artifactId>com.gemdigger.server</artifactId>
-	
-	<version>0.0.1-SNAPSHOT</version>
-	
-	<packaging>war</packaging>
-	
-	<name>gemdigger-server</name>
-	
-	<properties>
-		<org.springframework.version>3.1.2.RELEASE</org.springframework.version>
-		<gae.version>1.7.1</gae.version>
-		<gae.home>${appengine.sdk.root}</gae.home>
-        
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.gemdigger.server</groupId>
+
+    <artifactId>com.gemdigger.server</artifactId>
+
+    <version>0.0.1-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <name>gemdigger-server</name>
+
+    <properties>
+        <org.springframework.version>3.1.2.RELEASE</org.springframework.version>
+        <gae.version>1.7.1</gae.version>
+        <gae.home>${appengine.sdk.root}</gae.home>
+
         <!-- put your app name here -->
-	    <app.name>gemdigger-server</app.name>
+        <app.name>gemdigger-server</app.name>
 
         <!-- This is just for "eclipse:eclipse" goal to always attempt downloading sources -->
         <downloadSources>true</downloadSources>
 
         <!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
         <gae.application.version>test</gae.application.version>
-        
+
         <!-- port defaults to 8080 -->
         <gae.port>8080</gae.port>
-	</properties>
+    </properties>
 
-	<repositories>
+    <repositories>
         <repository>
             <id>DataNucleus</id>
             <url>http://www.datanucleus.org/downloads/maven2/</url>
         </repository>
-	</repositories>
-  	
-	<dependencies>
-		<!-- Spring libraries -->
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-core</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-expression</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-beans</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-aop</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-context</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-context-support</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-web</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-webmvc</artifactId>
-		  <version>${org.springframework.version}</version>
-		</dependency>
-		 
-		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-test</artifactId>
-		  <version>${org.springframework.version}</version>
-		  <scope>test</scope>
-		</dependency>
- 
-		<dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-orm</artifactId>
-	        <version>${org.springframework.version}</version>
-      	</dependency>
-      	<!-- /Spring libraries -->
-      	
+    </repositories>
+
+    <dependencies>
+        <!-- Project dependencies -->
+        <dependency>
+            <groupId>com.gravity</groupId>
+            <artifactId>goose</artifactId>
+            <version>2.1.20-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Spring libraries -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- /Spring libraries -->
+
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -165,84 +172,84 @@
             <version>${gae.version}</version>
             <scope>test</scope>
         </dependency>
-        
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.9</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-core</artifactId>
-			<version>3.0.11</version>
-	    	<scope>compile</scope>
-	    </dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-enhancer</artifactId>
-			<version>[3.0, 3.0.99)</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-		   <groupId>javax.jdo</groupId>
-		   <artifactId>jdo-api</artifactId>
-		   <version>3.0.1</version>
-			<scope>compile</scope>
-		</dependency>                
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-api-jdo</artifactId>
-			<version>[3.0, 3.0.99)</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-rdbms</artifactId>
-			<version>[3.0, 3.0.99)</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.appengine.orm</groupId>
-			<artifactId>datanucleus-appengine</artifactId>
-			<version>2.0.1.1</version>
-			<scope>runtime</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.datanucleus</groupId>
-					<artifactId>datanucleus-enhancer</artifactId>
-				</exclusion>
-				<exclusion>
-		            <groupId>com.google.appengine</groupId>
-		            <artifactId>appengine-api-1.0-sdk</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-	    <dependency>
-	      <groupId>org.apache.httpcomponents</groupId>
-	      <artifactId>httpclient</artifactId>
-	      <version>4.2.1</version>
-	    </dependency>
-	    
-	    <dependency>
-	      <groupId>commons-lang</groupId>
-	      <artifactId>commons-lang</artifactId>
-	      <version>2.6</version>
-	    </dependency>
-				
-	</dependencies>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>3.0.11</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-enhancer</artifactId>
+            <version>[3.0, 3.0.99)</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.jdo</groupId>
+            <artifactId>jdo-api</artifactId>
+            <version>3.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-api-jdo</artifactId>
+            <version>[3.0, 3.0.99)</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-rdbms</artifactId>
+            <version>[3.0, 3.0.99)</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine.orm</groupId>
+            <artifactId>datanucleus-appengine</artifactId>
+            <version>2.0.1.1</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.datanucleus</groupId>
+                    <artifactId>datanucleus-enhancer</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.appengine</groupId>
+                    <artifactId>appengine-api-1.0-sdk</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+    </dependencies>
 
 
     <build>
         <plugins>
-			<plugin>
+            <plugin>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>maven-datanucleus-plugin</artifactId>
                 <version>3.0.2</version>
@@ -260,39 +267,39 @@
                     </execution>
                 </executions>
                 <dependencies>
-			        <dependency>
-			            <groupId>javax.jdo</groupId>
-			            <artifactId>jdo-api</artifactId>
-			            <version>3.0</version>
-						<scope>runtime</scope>
-			        </dependency>                
-					<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-core</artifactId>
-						<version>3.0.11</version>
-						<scope>runtime</scope>
-	        		</dependency>
-	        		<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-api-jdo</artifactId>
-						<version>[3.0, 3.0.99)</version>
-						<scope>runtime</scope>
-					</dependency>
-					<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-rdbms</artifactId>
-						<version>[3.0, 3.0.99)</version>
-						<scope>runtime</scope>
-		        	</dependency>
-		        	<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-enhancer</artifactId>
-						<version>[3.0, 3.0.99)</version>
-						<scope>runtime</scope>
-					</dependency>
+                    <dependency>
+                        <groupId>javax.jdo</groupId>
+                        <artifactId>jdo-api</artifactId>
+                        <version>3.0</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-core</artifactId>
+                        <version>3.0.11</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-api-jdo</artifactId>
+                        <version>[3.0, 3.0.99)</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-rdbms</artifactId>
+                        <version>[3.0, 3.0.99)</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-enhancer</artifactId>
+                        <version>[3.0, 3.0.99)</version>
+                        <scope>runtime</scope>
+                    </dependency>
                 </dependencies>
             </plugin>
-        
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -306,9 +313,9 @@
                                 <include>*.xml</include>
                             </includes>
                         </resource>
-						<resource>
-							<directory>src/main/resources</directory>
-						</resource>                        
+                        <resource>
+                            <directory>src/main/resources</directory>
+                        </resource>
                     </webResources>
                 </configuration>
             </plugin>
@@ -329,29 +336,29 @@
                     <sdkDir>${appengine.sdk.root}</sdkDir>
                 </configuration>
                 <dependencies>
-					<dependency>
-						<groupId>net.kindleit</groupId>
-						<artifactId>gae-runtime</artifactId>
-						<version>1.7.0</version>
-						<type>pom</type>
-					</dependency>
-			        <dependency>
-			            <groupId>javax.jdo</groupId>
-			            <artifactId>jdo-api</artifactId>
-			            <version>3.0</version>
-			        </dependency>                
-					<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-core</artifactId>
-						<version>3.0.11</version>
-	        		</dependency>
-		        	<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-enhancer</artifactId>
-						<version>[3.0, 3.0.99)</version>
-						<scope>runtime</scope>
-					</dependency>	        		
-				</dependencies>
+                    <dependency>
+                        <groupId>net.kindleit</groupId>
+                        <artifactId>gae-runtime</artifactId>
+                        <version>1.7.0</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.jdo</groupId>
+                        <artifactId>jdo-api</artifactId>
+                        <version>3.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-core</artifactId>
+                        <version>3.0.11</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-enhancer</artifactId>
+                        <version>[3.0, 3.0.99)</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- Upload application to the appspot automatically, during release:perform -->
@@ -370,8 +377,8 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <compilerArguments>
-            			<processor>org.datanucleus.enhancer.EnhancerProcessor</processor>
-        			</compilerArguments>
+                        <processor>org.datanucleus.enhancer.EnhancerProcessor</processor>
+                    </compilerArguments>
                 </configuration>
             </plugin>
         </plugins>

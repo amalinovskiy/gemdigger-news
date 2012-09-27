@@ -1,9 +1,13 @@
 package com.gemdigger.server.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +30,24 @@ public class InfoController {
 	public @ResponseBody InfoStatus recordAction(@RequestParam String userId, @RequestParam Action action, @RequestParam String url) {
 		
 		try {
-			newsDao.saveAction(userId, action, url);	
+            NewsAction newsAction = new NewsAction();
+
+            newsAction.setAction(action);
+            newsAction.setUrl(url);
+            newsAction.setUserId(userId);
+            newsAction.setCreated(new Date());
+
+            newsDao.saveAction(newsAction);
+
+            Queue taskQueue = QueueFactory.getQueue("fetch-queue");
+            TaskOptions options = TaskOptions.Builder.withUrl("/task/fetch").param("actionId", newsAction.getId().toString());
+            taskQueue.add(options);
+
 		} catch (Throwable ex) {
 			log.log(Level.SEVERE, ex.getMessage(), ex);
 			
 			return InfoStatus.FAILED;
 		}
-		
 		
 		return InfoStatus.SUBMITTED;
 	}

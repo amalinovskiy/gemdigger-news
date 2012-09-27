@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import com.gemdigger.server.model.NewsBody;
 import org.springframework.stereotype.Service;
 
 import com.gemdigger.server.model.Action;
@@ -17,14 +18,8 @@ public class NewsDao {
 
 	public static final Logger log = Logger.getLogger(NewsDao.class.getName());
 	
-	public void saveAction(String userId, Action action, String url) {
-		NewsAction newsAction = new NewsAction();
-		
-		newsAction.setAction(action);
-		newsAction.setUrl(url);
-		newsAction.setUserId(userId);
-		newsAction.setCreated(new Date());
-		
+	public void saveAction(NewsAction newsAction) {
+
 		PersistenceManager manager = PMF.get().getPersistenceManager();
 		try {
 			manager.makePersistent(newsAction);
@@ -32,8 +27,19 @@ public class NewsDao {
 			manager.close();
 		}
 		
-		log.info("Saved action: " + newsAction.toString());
+		log.info("Saved new action: " + newsAction.toString());
 	}
+
+    public void saveNewsBody(NewsBody newsBody) {
+        PersistenceManager manager = PMF.get().getPersistenceManager();
+        try {
+            manager.makePersistent(newsBody);
+        } finally {
+            manager.close();
+        }
+
+        log.info("Saved new news body: " + newsBody.getUrl());
+    }
 	
 	@SuppressWarnings("unchecked")
 	public List<NewsAction> listActions(String userId, boolean withBody) {
@@ -44,12 +50,13 @@ public class NewsDao {
 		q.declareParameters("String userIdParam");
 
 		try {
-			if (withBody) {
+			if (!withBody) {
 				return (List<NewsAction>)q.execute(userId);				
 			} else {
 				List<NewsAction> actions = (List<NewsAction>)q.execute(userId);
 				
 				for  (NewsAction action : actions) {
+                    manager.getObjectById(action.getUrl());
 					action.setBody(null);
 				}
 
@@ -58,7 +65,28 @@ public class NewsDao {
 			
 		} finally {
 			q.closeAll();
+            manager.close();
 		}
 	}
+
+    public NewsAction getActionById(Long id) {
+        PersistenceManager manager = PMF.get().getPersistenceManager();
+
+        try {
+            return (NewsAction)manager.getObjectById(id);
+        }  finally {
+            manager.close();
+        }
+    }
+
+    public NewsBody getBodyByUrl(String url) {
+        PersistenceManager manager = PMF.get().getPersistenceManager();
+
+        try {
+            return (NewsBody)manager.getObjectById(url);
+        }  finally {
+            manager.close();
+        }
+    }
 
 }

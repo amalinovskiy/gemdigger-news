@@ -24,15 +24,23 @@ public class NewsAction {
 	@Persistent
 	private Action action;
 
+    /**
+     * Url which came with an action - may contain tracking params and such
+     */
 	@Persistent
 	private String url;
+
+    /**
+     * Final canonical url of the news body of the action
+     */
+    @Persistent
+    private String canonicalUrl;
 	
 	@Persistent
 	private Date created;
 	
-	@Persistent
 	private NewsBody body;
-	
+
 
 	public Long getId() {
 		return id;
@@ -66,7 +74,15 @@ public class NewsAction {
 		this.url = url;
 	}
 
-	public Date getCreated() {
+    public String getCanonicalUrl() {
+        return canonicalUrl;
+    }
+
+    public void setCanonicalUrl(String canonicalUrl) {
+        this.canonicalUrl = canonicalUrl;
+    }
+
+    public Date getCreated() {
 		return created;
 	}
 

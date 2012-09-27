@@ -5,27 +5,52 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import java.util.Set;
 
 @PersistenceCapable
 public class NewsBody {
 
 	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-    private String encodedKey;
-	
+    @Persistent
+    private String url;
+
+    @Persistent
+    String title;
+
+    @Persistent
+    Set<String> tags;
+
 	@Persistent
 	String body;
 
-	public String getEncodedKey() {
-		return encodedKey;
+    @Persistent
+    String rawHtml;
+
+	public String getUrl() {
+		return url;
 	}
 
-	public void setEncodedKey(String encodedKey) {
-		this.encodedKey = encodedKey;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getBody() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getBody() {
 		return body;
 	}
 
@@ -33,4 +58,11 @@ public class NewsBody {
 		this.body = body;
 	}
 
+    public String getRawHtml() {
+        return rawHtml;
+    }
+
+    public void setRawHtml(String rawHtml) {
+        this.rawHtml = rawHtml;
+    }
 }

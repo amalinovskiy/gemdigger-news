@@ -12,8 +12,17 @@
 	<context:component-scan base-package="com.gemdigger.server" />
 
 	<mvc:annotation-driven />
-	
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+
+    <bean id="gooseConfiguration" class="com.gravity.goose.Configuration">
+        <property name="enableImageFetching" value="false" />
+    </bean>
+
+    <bean id="goose" class="com.gravity.goose.Goose">
+        <property name="config" ref="gooseConfiguration" />
+    </bean>
+
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 	    <property name="messageConverters">
 	        <list>
 	            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">

@@ -2,3 +2,5 @@ com.gemdigger.server/src/main/webapp/WEB-INF/classes/
 com.gemdigger.server/src/main/webapp/WEB-INF/lib/
 .metadata/
 Servers/
+.idea/
+*.iml
