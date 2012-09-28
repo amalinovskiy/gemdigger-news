@@ -1,5 +1,6 @@
 package com.gemdigger.server.controller;
 
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -8,6 +9,7 @@ import java.util.logging.Logger;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
+import org.apache.commons.codec.StringDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,7 @@ public class InfoController {
             NewsAction newsAction = new NewsAction();
 
             newsAction.setAction(action);
-            newsAction.setUrl(url);
+            newsAction.setUrl(URLDecoder.decode(url, "UTF-8"));
             newsAction.setUserId(userId);
             newsAction.setCreated(new Date());
 
