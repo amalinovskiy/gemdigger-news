@@ -84,7 +84,7 @@ public class NewsDao {
         PersistenceManager manager = PMF.get().getPersistenceManager();
 
         try {
-            return (NewsBody)manager.getObjectById(url);
+            return manager.getObjectById(NewsBody.class, url);
         } catch (JDOObjectNotFoundException ex) {
             return null;
         }  finally {

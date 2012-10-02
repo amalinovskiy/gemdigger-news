@@ -45,7 +45,7 @@ public class NewsFetchController {
                 body.setTags(article.getTagsSet());
                 body.setTitle(article.title());
                 body.setRawHtml(article.rawHtml());
-                body.setUrl(article.canonicalLink());
+                body.setUrl(article.canonicalLink() == null ? newsAction.getUrl() : newsAction.getUrl());
 
                 newsDao.saveNewsBody(body);
                 log.info("Created news body record for "  + newsAction.getUrl() + " with canonical url: " + article.canonicalLink() );
