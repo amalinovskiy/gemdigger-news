@@ -2,19 +2,36 @@
 
 	$("#entries").on('click', function(e) {
 	    var entryAction = new EntryAction($($(e.target).parents("#current-entry")[0]));
-	    chrome.extension.sendRequest({userId: "anton", action: "CHECK", url: entryAction.entry.url},
-         function(response) {
-            //DO NOTHING
-        });
+        switch (e.which) {
+            case 1:
+                chrome.extension.sendRequest({userId: "anton", action: "CHECK", url: entryAction.entry.url},
+                 function(response) {
+                    //DO NOTHING
+                });
+            case 3:
+                if ($(e.target).attr('href') != 'undefined') {
+                    chrome.extension.sendRequest({userId: "anton", action: "READ", url: entryAction.entry.url},
+                     function(response) {
+                        //DO NOTHING
+                    });
+                }
+        }
+
+        return true;
 	});
 
-	$(".entry-title-link").on('click', function(e) {
+	$("#entries").on('contextmenu', function(e) {
 	    var entryAction = new EntryAction($(e.target).parent());
-	    chrome.extension.sendRequest({userId: "anton", action: "CLICK", url: entryAction.entry.url},
-         function(response) {
-            //DO NOTHING
-        });
+	    if (typeof $(e.target).attr('href') != 'undefined') {
+            chrome.extension.sendRequest({userId: "anton", action: "READ", url: entryAction.entry.url},
+                function(response) {
+                    //DO NOTHING
+            });
+        }
+
+        return true;
 	});
+
 
 	var EntryAction = function(element) {
 	    this.element = element;
